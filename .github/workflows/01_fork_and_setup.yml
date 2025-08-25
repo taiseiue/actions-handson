@@ -1,0 +1,39 @@
+name: 01 Fork And Setup
+
+on:
+  workflow_dispatch:
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify to Slack
+        run: |
+          TS=$(date +%s)
+          cat <<EOF > payload.json
+          {
+            "channel": "dev-インターン_ハンズオン",
+            # "thread_ts": "1756085756.447339",
+            "thread_ts": "1756095692.513299",
+            "attachments": [
+              {
+                "fallback": "ハンズオン 01_fork_and_setup の通知",
+                "color": "#215EBF",
+                "pretext": "01 Fork And Setup ✅ <!channel>",
+                "author_name": ":github_white: ${{ vars.AUTHOR_NAME }}",
+                "title": "Github Repository",
+                "title_link": "${{ vars.REPOSITORY }}",
+                "text": ":speech_balloon: ${{ vars.MESSAGE }}",
+                "footer": "インターン_ハンズオン BOT",
+                "footer_icon": "https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-image-store.s3.ap-northeast-1.amazonaws.com%2F0%2F1022001%2F30818b78-45d7-bac7-12b9-8433c2ef3011.png?ixlib=rb-4.0.0&auto=format&gif-q=60&q=75&s=035dfbe9921b278308e895b5e03dab1a",
+                "ts": $TS
+              }
+            ]
+          }
+          EOF
+          if curl --fail --show-error -X POST -H 'Content-type: application/json' --data @payload.json ${{ secrets.SLACK_WEBHOOK_URL }}; then
+            echo "🚀 Slack 通知成功"
+          else
+            echo "❌ Slack 通知失敗"
+            exit 1
+          fi

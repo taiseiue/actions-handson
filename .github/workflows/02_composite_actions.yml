@@ -1,0 +1,19 @@
+name: 02 Composite Actions
+
+on:
+  workflow_dispatch:
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Notify to Slack
+      uses: ippanpeople/slack-notify-action@v0.0.7
+      with:
+        webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
+        # thread_ts: "1756085781.497739"
+        thread_ts: "1756095692.513299"
+        pretext: "02 Composite Actions ✅ <!channel>"
+        author_name: ":github_white: ${{ vars.AUTHOR_NAME }}"
+        repository: "${{ vars.REPOSITORY }}"
+        message: ":speech_balloon: ${{ vars.MESSAGE }}"
