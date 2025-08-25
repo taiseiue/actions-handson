@@ -1,9 +1,7 @@
 name: 03 Sacloud Apprun Actions
 
 on:
-  push:
-    branches:
-      - master
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -42,8 +40,7 @@ jobs:
         uses: ippanpeople/slack-notify-action@v0.0.5
         with:
           webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
-          # thread_ts: "1756085798.811349"
-          thread_ts: "1756095692.513299"
+          thread_ts: "1756085798.811349"
           pretext: "03 Sacloud Apprun Actions ✅ <!channel>"
           author_name: ":github_white: ${{ vars.AUTHOR_NAME }}"
           repository: "${{ vars.REPOSITORY }}"
