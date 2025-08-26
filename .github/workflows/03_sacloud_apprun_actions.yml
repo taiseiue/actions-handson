@@ -3,7 +3,7 @@ name: 03 Sacloud Apprun Actions
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   deploy:
